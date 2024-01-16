@@ -6,7 +6,8 @@ router.get('/health', (req, res, next) => {
     res.send('OK');
 });
 
-// ROUTER: /api/video-games
+// ROUTER: /api/
 router.use('/tours', require('./tours'));
+router.use('/guests', require('./guests'));
 
 module.exports = router;
