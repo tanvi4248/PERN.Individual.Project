@@ -23,9 +23,9 @@ const tours = [
   //guest
   
   const guests = [
-    {firstname:'lisa',lastname:'hennah',email:'abc@gmail.com'},
-    {firstname:'andy',lastname:'cal',email:'xyz@gmail.com'},
-    {firstname:'tris',lastname:'kale',email:'abc12@gmail.com'}
+    {firstname:'lisa',lastname:'hennah',email:'abc@gmail.com',password:'obuprufi'},
+    {firstname:'andy',lastname:'cal',email:'xyz@gmail.com',password:'tynal'},
+    {firstname:'tris',lastname:'kale',email:'abc12@gmail.com',password:'theralu'}
   ]
   
   module.exports = {tours,guests}
