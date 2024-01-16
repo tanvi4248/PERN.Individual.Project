@@ -1,5 +1,8 @@
 const client = require('./client')
 const { tours, guests } = require('./seedData')
+const { createGuests } = require('./sqlHelperFunctions/guests')
+const { createTours } = require('./sqlHelperFunctions/tours')
+
 
 const dropTables = async() => {
   try{
@@ -22,7 +25,8 @@ const createTable = async() => {
       "guestsId" SERIAL PRIMARY KEY,
       firstname varchar(50) NOT NULL,
       lastname varchar(50) NOT NULL,
-      email varchar(50) NOT NULL
+      email varchar(50) NOT NULL,
+      password varchar(255) NOT NULL
     );
     CREATE TABLE tours(
       "tourId" SERIAL PRIMARY KEY,
@@ -40,10 +44,7 @@ const createTable = async() => {
 const createInitialGuests = async () => {
   try{
     for(const guest of guests){
-      const{rows:[guests]} = await client.query(`
-      INSERT INTO guests(firstname,lastname,email)
-      VALUES($1,$2,$3) RETURNING *;
-      `,[guest.firstname,guest.lastname,guest.email])
+      await createGuests(guest)
     }
     console.log("created guests")
   }catch(error){
@@ -53,10 +54,7 @@ const createInitialGuests = async () => {
 const createInitialTours = async () => {
   try{
     for(const tour of tours){
-      const{rows:[tours]} = await client.query(`
-        INSERT INTO tours(title,"guestsId",description,googlemap,"imgUrl")
-        VALUES($1,$2,$3,$4,$5) RETURNING *;
-      `,[tour.title,tour.guestsId ? tour.guestsId : null,tour.description,tour.googlemap,tour.imgUrl])
+      await createTours(tour)
     }
     console.log("created tours")
   }catch(error){
