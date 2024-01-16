@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { authRequired } = require('./utils')
 const { getAllTours,
     getToursById,
     createTours,
@@ -26,7 +26,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', authRequired,async (req, res, next) => {
     try {
         const tour = await createTours(req.body);
         res.send(tour);
