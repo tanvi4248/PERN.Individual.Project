@@ -28,7 +28,8 @@ export default function SingleTour() {
       <Col xs={7}>
         <h2 className={styles.title}>{tour.title}</h2>
         <div className={styles.description}>{tour.description}</div>
-        <a className={styles.map} href={tour.googlemap}>Google Map</a>
+        <a className={styles.map} href={tour.googlemap}>View in a map</a>
+        <div className={styles.price}>${tour.price} <span>includes taxes & fees</span></div>
         <Button variant="primary" className={styles.reserve}>Reserve</Button>
       </Col>
       </Row>

@@ -18,3 +18,11 @@
     display: block;
     padding: 0 0 10px;
 }
+.price{
+    font-weight: 600;
+    padding: 0 0 10px;
+}
+.price > span{
+    font-weight: 400;
+    font-size: 14px;
+} 

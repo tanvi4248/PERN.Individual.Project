@@ -19,3 +19,14 @@
 .img{
     padding: 0 0 10px;
 }
+.pricedetail{
+    display: flex;
+    justify-content: space-between;
+}
+.price{
+    font-weight: 600;
+}
+.price > span{
+    font-weight: 400;
+    font-size: 14px;
+} 

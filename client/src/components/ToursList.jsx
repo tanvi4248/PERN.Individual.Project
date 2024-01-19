@@ -28,7 +28,10 @@ export default function ToursList() {
             <div className={styles.img}>
             <img src={tour.imgUrl} alt={tour.title}></img>
             </div>
+            <div className={styles.pricedetail}>
+            <div className={styles.price}>${tour.price} <br/> <span>includes taxes & fees</span></div>
             <Button variant="primary" className={styles.detail} onClick={() => navigate(`/tours/${tour.tourId}`)}>See Details</Button>
+            </div>
         </div>
         </Col>
       ))}
