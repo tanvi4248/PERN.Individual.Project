@@ -17,7 +17,6 @@ const { JWT_SECRET } = require('../secrets')
 
 const authRequired = (req, res, next) => {
   const token = req.get('Authorization').split(' ')[1];
-  console.log(token);
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET)
