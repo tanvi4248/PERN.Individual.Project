@@ -35,7 +35,8 @@ const createTable = async() => {
       description TEXT NOT NULL,
       googlemap TEXT NOT NULL,
       "imgUrl" TEXT NOT NULL,
-      price INT NOT NULL
+      price INT NOT NULL,
+      IsReserve BOOLEAN
     )
     `)
   }catch(error){

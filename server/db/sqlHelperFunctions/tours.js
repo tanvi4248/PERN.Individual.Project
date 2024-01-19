@@ -21,14 +21,14 @@ const getToursById = async(tourId) => {
     }
 }
 
-const createTours = async({title,guestsId,description,googlemap,imgUrl,price}) => {
+const createTours = async({title,guestsId,description,googlemap,imgUrl,price,IsReserve}) => {
     try{
         const { rows: [tours] } = await client.query(`
-        INSERT INTO tours("title","guestsId","description","googlemap","imgUrl",price)
-        VALUES($1,$2,$3,$4,$5,$6)
+        INSERT INTO tours("title","guestsId","description","googlemap","imgUrl",price,"IsReserve")
+        VALUES($1,$2,$3,$4,$5,$6,$7)
         RETURNING *;
         `,
-        [title,guestsId,description,googlemap,imgUrl,price]
+        [title,guestsId,description,googlemap,imgUrl,price,IsReserve]
         )
         return tours
     }catch(error){
