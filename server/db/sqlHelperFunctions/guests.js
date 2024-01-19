@@ -27,12 +27,24 @@ const getAllGuests = async() => {
     }
 }
 
+// const getGuestsById = async(guestsId) => {
+//     try{
+//     const { rows: [guest] } = await client.query(`
+//     SELECT "guestsId",firstname,lastname,email 
+//     FROM guests 
+//     WHERE "guestsId" = ${guestsId};
+//     `)
+//     return guest
+//     }catch(error){
+//         throw error
+//     }
+// }
 
 const getGuestsByFirstname = async(firstname) => {
     const {
         rows: [guest],
     } = await client.query(`
-    SELECT * FROM guests WHERE guests.firstname = '${firstname}'
+    SELECT * FROM guests WHERE guests.firstname = '${firstname}';
     `)
     return guest
 }

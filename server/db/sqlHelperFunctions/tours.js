@@ -13,7 +13,8 @@ const getAllTours = async () => {
 
 const getToursById = async(tourId) => {
     try{
-        const { rows: [tours] } = await client.query(`SELECT * FROM tours WHERE "tourId" = ${tourId};`)
+        const { rows: [tours] } = await client.query(`
+        SELECT * FROM tours WHERE "tourId" = ${tourId};`)
         return tours
     }catch(error){
         throw error
