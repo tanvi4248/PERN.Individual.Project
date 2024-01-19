@@ -14,7 +14,10 @@ function App() {
     <>
       <div id='header' className={styles.header}>
         <div className={styles.headerinner}>
-        <img id='logo-image' src={travelLogo}/>
+          <div className={styles.logo}>
+          <img id='logo-image' src={travelLogo}/>
+          <span>Travel</span>
+          </div>
         <Nav></Nav>
         </div>
       </div>

@@ -10,3 +10,11 @@
   display: flex;
   padding: 15px;
 }
+.logo{
+  display: flex;
+  align-items: center;
+}
+.logo > span{
+  color: #F48037;
+  font-weight: 600;
+}
