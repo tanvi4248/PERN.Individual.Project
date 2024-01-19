@@ -2,8 +2,8 @@ import { useSelector } from "react-redux"
 import { useGetGuestQuery } from "../redux/api"
 export default function Account() {
     const token = useSelector(state => state.token)
-    const {data ,error, isLoading } = useGetGuestQuery()
-    console.log(data)
+    const {data: user ,error, isLoading } = useGetGuestQuery()
+    console.log(user)
     if (!token) {
         return
     }
@@ -11,15 +11,15 @@ export default function Account() {
         return <div className="loading">Loading...</div>;
     }
     
-    if (error || !data) {
+    if (error || !user) {
         return <div className="error">Error: {error}</div>;
     }
 
   return (
     <>
     <div className="account-details">
-      <h2 className="name">{data.firstname} detail page</h2>
-      <div className="email">{data.email}</div>
+      <h2 className="name">{user.firstname} detail page</h2>
+      <div className="email">{user.email}</div>
     </div>
   </>
   )

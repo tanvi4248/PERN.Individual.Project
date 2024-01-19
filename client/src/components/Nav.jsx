@@ -15,9 +15,9 @@ export default function Nav() {
           <>
             <Link to="/account">Account</Link>
             <a onClick={() => {
-                                    dispatch(setToken({token: null}))
-                                    navigate('/');
-                                }}>Logout</a> 
+                dispatch(setToken({token: null}))
+                navigate('/');
+            }}>Logout</a> 
           </>
         ) : (
           <>
