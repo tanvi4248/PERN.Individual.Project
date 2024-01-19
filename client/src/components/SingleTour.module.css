@@ -1,0 +1,20 @@
+.singletour{
+    padding: 20px;
+    background: #ffffff;
+}
+.title{
+    padding: 0 0 10px;
+    color: #F48037;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.img{
+    padding: 0 0 10px;
+}
+.description{
+    padding: 0 0 10px;
+}
+.map{
+    display: block;
+    padding: 0 0 10px;
+}
