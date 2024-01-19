@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 import {useLoginMutation,useRegisterMutation} from '../redux/api'
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
-
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import styles from './AuthForm.module.css'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 // eslint-disable-next-line react/prop-types
 export default function AuthForm({ type }) {
     const [register] = useRegisterMutation();
@@ -27,45 +31,66 @@ export default function AuthForm({ type }) {
     }
 
   return (
-    <form onSubmit={handleSubmit}>
-        <div>
-            <label htmlFor='firstname'>Firstname</label>
-            <input 
-            type='text' 
-            name='firstname' 
-            onChange={e => setFirstname(e.target.value)} 
-            value={firstname}/>
-        </div>
-        {type === "register" &&
-        <div>
-            <label htmlFor='lastname'>Lastname</label>
-            <input 
-            type='text' 
-            name='lastname' 
-            onChange={e => setLastname(e.target.value)} 
-            value={lastname}/>
-        </div>
-        }
-         {type === "register" &&
-        <div>
-            <label htmlFor='email'>Email</label>
-            <input 
-            type='text' 
-            name='email'
-            onChange={e => setEmail(e.target.value)} 
-            value={email}/>
-        </div>
-        }
-        <div>
-            <label htmlFor='password'>Password</label>
-            <input 
-            type='password' 
-            name='password'
-            onChange={e => setPassword(e.target.value)} 
-            value={password}/>
-        </div>
-        <button type='submit'>{type === 'login' ? "Log In" : "Register"}</button>
-    </form>
+    <>
+    {type === "register" ?
+      <h1>Register Form</h1> : <h1>Login Form</h1>            
+    }
+    <Row className={styles.formrow}>
+        <Col xs={5}>
+            <Form onSubmit={handleSubmit} className={styles.form}>
+                <Form.Group controlId="firstname">
+                <Form.Label>First name</Form.Label>
+                <Form.Control
+                    required
+                    type="text"
+                    onChange={e => setFirstname(e.target.value)}
+                    defaultValue={firstname}
+                />
+                </Form.Group>
+                {/* <div>
+                    <label htmlFor='firstname'>Firstname</label>
+                    <input 
+                    type='text' 
+                    name='firstname' 
+                    onChange={e => setFirstname(e.target.value)} 
+                    value={firstname}/>
+                </div> */}
+                {type === "register" &&
+                <Form.Group controlId="lastname">
+                <Form.Label>Last name</Form.Label>
+                <Form.Control
+                    required
+                    type="text"
+                    onChange={e => setLastname(e.target.value)}
+                    defaultValue={lastname}
+                />
+                </Form.Group>
+                }
+                {type === "register" &&
+                <Form.Group controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                    required
+                    type="text"
+                    onChange={e => setEmail(e.target.value)}
+                    defaultValue={email}
+                />
+                </Form.Group>
+                }
+                <Form.Group controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    required
+                    type="password"
+                    onChange={e => setPassword(e.target.value)}
+                    defaultValue={password}
+                />
+                </Form.Group>
+                <Button type='submit' variant="primary">{type === 'login' ? "Log In" : "Register"}</Button>
+            </Form>
+        </Col>
+    </Row>
+    </>
   )
 }
 
