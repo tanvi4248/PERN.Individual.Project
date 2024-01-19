@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux"
 import { useGetGuestQuery } from "../redux/api"
+import styles from './Account.module.css'
+
 export default function Account() {
     const token = useSelector(state => state.token)
     const {data: user ,error, isLoading } = useGetGuestQuery()
@@ -17,7 +19,7 @@ export default function Account() {
 
   return (
     <>
-    <div className="account-details">
+    <div className={styles.accountdetail}>
       <h2 className="name">{user.firstname} detail page</h2>
       <div className="email">{user.email}</div>
     </div>
