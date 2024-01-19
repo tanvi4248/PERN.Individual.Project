@@ -1,0 +1,21 @@
+.tourcard {
+    background: #fff;
+    padding: 15px;
+}
+.tourtitle {
+    font-weight: 700;
+    font-size: 20px;
+    color: #F48037;
+    text-transform: capitalize;
+    padding: 0 0 10px;
+}
+.description{
+    padding: 0 0 10px;
+}
+.map{
+    padding:0 0 10px;
+    display: block;
+}
+.img{
+    padding: 0 0 10px;
+}
