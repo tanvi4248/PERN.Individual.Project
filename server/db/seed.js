@@ -34,7 +34,8 @@ const createTable = async() => {
       "guestsId" INTEGER REFERENCES guests("guestsId"),
       description TEXT NOT NULL,
       googlemap TEXT NOT NULL,
-      "imgUrl" TEXT NOT NULL
+      "imgUrl" TEXT NOT NULL,
+      price INT NOT NULL
     )
     `)
   }catch(error){
