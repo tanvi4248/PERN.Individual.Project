@@ -1,0 +1,12 @@
+.header {
+  float: left;
+  width: 100%;
+  padding: 30px;
+}
+.headerinner{
+  background: #ffffff;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  padding: 15px;
+}
