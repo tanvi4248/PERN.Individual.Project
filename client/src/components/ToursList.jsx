@@ -25,7 +25,6 @@ export default function ToursList() {
         <div className={styles.tourcard}>
             <div className={styles.tourtitle}>{tour.title}</div>
             <div className={styles.description}>{tour.description}</div>
-            <a className={styles.map} href={tour.googlemap}>Google Map</a>
             <div className={styles.img}>
             <img src={tour.imgUrl} alt={tour.title}></img>
             </div>
