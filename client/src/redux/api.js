@@ -20,6 +20,16 @@ const api = createApi({
         getSingleTour: builder.query({
             query: (tourId) => `/tours/${tourId}`,
         }),
+        getGuest: builder.query({
+            query: (token) => ({
+                url: '/guests/me',
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': `Bearer ${token}`,
+                },
+            }),
+        }),
         register: builder.mutation({
             query: ({ firstname, lastname, email, password }) => ({
                 url: '/guests/register',
@@ -33,9 +43,6 @@ const api = createApi({
                 method: "POST",
                 body: { firstname, password },
             }),
-        }),
-        getGuest: builder.query({
-            query: (firstname) => `/guests/${firstname}`,
         })
     })
 })
