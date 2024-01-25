@@ -1,13 +1,26 @@
-import {useGetSingleTourQuery} from '../redux/api'
-import { useParams } from "react-router-dom"
+import {useGetSingleTourQuery,useReservationsMutation} from '../redux/api'
+import { useParams,Link } from "react-router-dom"
 import styles from './SingleTour.module.css'
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { useSelector } from "react-redux"
+import { selectCurrentToken, selectCurrentGuest } from "../redux/tokenSlice"
+import Button from 'react-bootstrap/Button'
 export default function SingleTour() {
   const {tourId} = useParams()
+  const token = useSelector(selectCurrentToken);
+  const guest = useSelector(selectCurrentGuest);
   const { data: tour, error, isLoading } = useGetSingleTourQuery(tourId)
+  const [reservations] = useReservationsMutation()
   console.log(tour)
+
+  const handleReserve = async () => {
+    await reservations({ guestsId: guest.id, tourId: tourId })
+      .unwrap()
+      .then((res) => console.log(res))
+      .catch((error) => console.error('rejected', error))
+  }
+
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -22,7 +35,7 @@ export default function SingleTour() {
       <Row>
       <Col xs={5}>
         <div className={styles.img}>
-              <img src={tour.imgUrl} alt={tour.title}></img>
+              <img src={tour.imgurl} alt={tour.title}></img>
         </div>
       </Col>
       <Col xs={7}>
@@ -30,7 +43,13 @@ export default function SingleTour() {
         <div className={styles.description}>{tour.description}</div>
         <a className={styles.map} href={tour.googlemap}>View in a map</a>
         <div className={styles.price}>${tour.price} <span>includes taxes & fees</span></div>
-        <Button variant="primary" className={styles.reserve}>Reserve</Button>
+        {token ? (
+            <Button variant="primary" onClick={handleReserve}>Reserve</Button>
+          ) : (
+            <Button>
+              <Link to="/login">Login to Reserve</Link>
+            </Button>
+          )}
       </Col>
       </Row>
     </div>
