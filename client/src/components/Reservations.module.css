@@ -1,0 +1,22 @@
+.checkouttour{
+    background: white;
+    margin: 0 0 15px;
+}
+.detail{
+    padding: 30px 0 0;
+}
+.title {
+    font-weight: 700;
+    font-size: 16px;
+    color: #F48037;
+    text-transform: capitalize;
+    padding: 0 0 5px;
+}
+.price{
+    font-weight: 600;
+}
+.totalprice{
+    font-weight: 600;
+    color: #ffffff;
+    float: right;
+}
