@@ -1,47 +1,44 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-import api from './api';
+const initialState = {
+  guest:
+  localStorage.getItem("guest") === null
+      ? {}
+      : JSON.parse(localStorage.getItem("guest")),
+  token:
+  localStorage.getItem("token") === null
+      ? ""
+      : JSON.parse(localStorage.getItem("token")),
+};
 
 const tokenSlice = createSlice({
-    name: "token",
-    initialState: localStorage.getItem('token') ?? null,
-    reducers: {
-        setToken: (_state, {payload}) => {
-            const {token} = payload;
-            // save the new token state in localstorage
-            if (!token) {
-                localStorage.removeItem('token');
-                return null;
-            } else {
-                localStorage.setItem('token', token);
-                // return the new token state
-                return token;
-            }
-        }
+  name: "token",
+  initialState,
+  reducers: {
+    setGuestdata: (state, action) => {
+      const { guest, token } = action.payload;
+      state.guest = guest;
+      state.token = token;
+      localStorage.setItem("guest", JSON.stringify(state.guest));
     },
-    extraReducers: (builder) => {
-        builder.addMatcher(
-            api.endpoints.register.matchFulfilled,
-            (state, {payload}) => {
-                const {token} = payload;
-                // update local storage with the token
-                localStorage.setItem('token', token);
-                return token;
-            }
-        );
-
-        builder.addMatcher(
-            api.endpoints.login.matchFulfilled,
-            (state, {payload}) => {
-                const {token} = payload;
-                // update local storage with the token
-                localStorage.setItem('token', token);
-                return token;
-            }
-        )
-    }
+    setToken: (state, action) => {
+      const { token } = action.payload;
+      state.token = token;
+      localStorage.setItem("token", JSON.stringify(state.token));
+    },
+    logOut: (state) => {
+      state.guest = null;
+      state.token = null;
+      localStorage.setItem("guest", null);
+      localStorage.setItem("token", null);
+    },
+  },
 });
 
-export default tokenSlice.reducer;
 
-export const {setToken} = tokenSlice.actions;
+
+export default tokenSlice.reducer;
+export const { setToken, setGuestdata, logOut } = tokenSlice.actions;
+
+export const selectCurrentGuest = (state) => state.token.guest;
+export const selectCurrentToken = (state) => state.token.token;
