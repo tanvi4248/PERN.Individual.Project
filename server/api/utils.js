@@ -21,7 +21,7 @@ const authRequired = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET)
     req.user = {
-      guestsId: decoded.guestsId,
+      id: decoded.id,
       firstname: decoded.firstname,
       lastname: decoded.lastname,
       email: decoded.email

@@ -9,7 +9,8 @@ const { authRequired } = require('./utils')
 const{
     getAllGuests,
     createGuests,
-    getGuestsByFirstname
+    getGuestsByFirstname,
+    getReservations
 } = require("../db/sqlHelperFunctions/guests");
 
 
@@ -24,6 +25,7 @@ router.get("/",async(req,res,next) => {
         next(error)
     }
 })
+
 
 // GET - /api/guests - get all guests
 router.get("/me",authRequired,async(req,res,next) => {
@@ -72,9 +74,12 @@ router.post("/login",async (req,res,next) => {
 			delete guest.password
 
 			res.send({ token, guest})
-		}
+		} else {
+            res.status(401).send({ error: 'Invalid password' })
+        }
 
     }catch(error){
+        console.log('error from post api router with login', error)
         next(error)
     }
 })
@@ -96,14 +101,14 @@ router.post("/logout", async (req, res, next) => {
 	}
 })
 
-// router.post("/verify", authRequired, (req, res) => {
-//     try {
-//       res.json(true);
-//     } catch (err) {
-//       console.error(err.message);
-//       res.status(500).send("Server error");
-//     }
-//   });
+router.get("/:id/reservations", async (req, res, next) => {
+    try {
+      const reservations = await getReservations(req.params.id);
+      res.send(reservations);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 
 module.exports = router
