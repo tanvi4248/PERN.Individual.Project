@@ -1,5 +1,6 @@
 import { Link,useNavigate } from "react-router-dom";
-import { setToken } from '../redux/tokenSlice'
+import { logOut } from '../redux/tokenSlice'
+import { selectCurrentToken, selectCurrentGuest } from "../redux/tokenSlice"
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './Nav.module.css'
 
@@ -7,7 +8,14 @@ import styles from './Nav.module.css'
 export default function Nav() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const token = useSelector(state => state.token)
+  const token = useSelector(selectCurrentToken)
+  const guest = useSelector(selectCurrentGuest)
+  console.log(token)
+  const handleLogout = async () => {
+    dispatch(logOut())
+    navigate("/")
+  }
+
   return (
     <div id="navbar" className={styles.navbar}>
         <Link to="/">Home</Link>
@@ -15,15 +23,13 @@ export default function Nav() {
         {token ? (
           <>
             <Link to="/account">Account</Link>
-            <Link to="/" onClick={() => {
-                dispatch(setToken({token: null}))
-                navigate('/');
-            }}>Logout</Link>
+            <Link to={`/${guest.id}/reservations`}>Reservations</Link>
+            <Link to="/" onClick={() => handleLogout()}>Logout</Link>
           </>
         ) : (
           <>
-          <Link to="/login" onClick={() => navigate('/login')}>Login</Link>
-          <Link to="/register" onClick={() => navigate('/register')}>Register</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
           </>
         )}      
     </div>
