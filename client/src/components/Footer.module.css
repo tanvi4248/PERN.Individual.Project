@@ -1,0 +1,21 @@
+
+.footer{
+    float: left;
+    width: 100%;
+    padding: 30px;
+}
+.footerlogo > span {
+    color: #F48037;
+    font-weight: 600;
+}
+.footerinner{
+    background: #ffffff;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footerinner > p{
+    margin:0;
+}
