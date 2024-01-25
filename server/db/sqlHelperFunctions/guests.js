@@ -16,6 +16,8 @@ const createGuests = async({firstname,lastname,email,password}) => {
     }
 }
 
+
+
 const getAllGuests = async() => {
     try{
         const { rows } = await client.query(`
@@ -27,26 +29,49 @@ const getAllGuests = async() => {
     }
 }
 
-// const getGuestsById = async(guestsId) => {
-//     try{
-//     const { rows: [guest] } = await client.query(`
-//     SELECT "guestsId",firstname,lastname,email 
-//     FROM guests 
-//     WHERE "guestsId" = ${guestsId};
-//     `)
-//     return guest
-//     }catch(error){
-//         throw error
-//     }
-// }
+
 
 const getGuestsByFirstname = async(firstname) => {
-    const {
-        rows: [guest],
-    } = await client.query(`
+    const { rows: [guest] } = await client.query(`
     SELECT * FROM guests WHERE guests.firstname = '${firstname}';
     `)
     return guest
 }
 
-module.exports = {createGuests,getAllGuests,getGuestsByFirstname}
+const getReservations = async (guestsId) => {
+    try {
+      const { rows } = await client.query(`
+            SELECT 
+            g.guest_id AS "guestsId",
+            t.id AS "tourId",
+            t.title AS title,
+            t.description AS description,
+            t.imgurl As imgurl,
+            t.price AS price
+            FROM reservations AS g
+            JOIN tours AS t ON g.tour_id = t.id
+            WHERE guest_id = ${guestsId};
+      `);
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+const createReservations = async(body) => {
+    try{
+        const {
+            rows: [guests]
+        } = await client.query(`
+            INSERT INTO reservations(guest_id,tour_id)
+            VALUES($1,$2)
+            RETURNING *;
+            `,[body.guestsId,body.tourId]
+            )
+            return guests
+    } catch(error){
+        throw error
+    }
+}
+
+module.exports = {createGuests,getAllGuests,getGuestsByFirstname,getReservations,createReservations}

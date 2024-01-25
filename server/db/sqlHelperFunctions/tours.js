@@ -11,31 +11,33 @@ const getAllTours = async () => {
     }
 }
 
+
+
 const getToursById = async(tourId) => {
     try{
         const { rows: [tours] } = await client.query(`
-        SELECT * FROM tours WHERE "tourId" = ${tourId};`)
+        SELECT * FROM tours WHERE "id" = ${tourId};`)
         return tours
     }catch(error){
         throw error
     }
 }
 
-const createTours = async({title,guestsId,description,googlemap,imgUrl,price,IsReserve}) => {
+const createTours = async({title,description,googlemap,imgurl,price,IsReserve}) => {
     try{
         const { rows: [tours] } = await client.query(`
-        INSERT INTO tours("title","guestsId","description","googlemap","imgUrl",price,"IsReserve")
-        VALUES($1,$2,$3,$4,$5,$6,$7)
+        INSERT INTO tours("title","description","googlemap",imgurl,price,"IsReserve")
+        VALUES($1,$2,$3,$4,$5,$6)
         RETURNING *;
         `,
-        [title,guestsId,description,googlemap,imgUrl,price,IsReserve]
+        [title,description,googlemap,imgurl,price,IsReserve]
         )
         return tours
     }catch(error){
         throw error
     }
 }
-const updateTours = async (tourId, fields) => {
+const updateTours = async (id, fields) => {
     try {
         const toUpdate = {}
         for (let column in fields) {
@@ -47,7 +49,7 @@ const updateTours = async (tourId, fields) => {
             const { rows } = await client.query(`
             UPDATE tours
             SET ${util.dbFields(toUpdate).insert}
-            WHERE "tourId"=${tourId}
+            WHERE id=${id}
             RETURNING *;
           `, Object.values(toUpdate));
             tour = rows[0];
@@ -61,11 +63,12 @@ const updateTours = async (tourId, fields) => {
 
 const deleteTours = async(tourId) => {
     try {
-        const { rows } = await client.query('DELETE FROM tours WHERE "tourId"=$1 RETURNING *', [tourId]);
+        const { rows } = await client.query('DELETE FROM tours WHERE "id"=$1 RETURNING *', [tourId]);
         return rows[0];
     } catch (err) {
         throw err
     }
 }
+
 
 module.exports = {getAllTours,getToursById,createTours,updateTours,deleteTours}

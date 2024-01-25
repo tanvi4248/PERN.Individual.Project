@@ -1,13 +1,12 @@
 const client = require('./client')
-const { tours, guests } = require('./seedData')
+const { tours, guests, reservations } = require('./seedData')
 const { createGuests } = require('./sqlHelperFunctions/guests')
 const { createTours } = require('./sqlHelperFunctions/tours')
-
-
 const dropTables = async() => {
   try{
     console.log("Starting to drop tables...")
     await client.query(`
+    DROP TABLE IF EXISTS reservations;
     DROP TABLE IF EXISTS tours;
     DROP TABLE IF EXISTS guests;
     `)
@@ -22,22 +21,25 @@ const createTable = async() => {
     console.log("building tables..")
     await client.query(`
     CREATE TABLE guests(
-      "guestsId" SERIAL PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       firstname varchar(50) NOT NULL,
       lastname varchar(50) NOT NULL,
       email varchar(50) NOT NULL,
       password varchar(255) NOT NULL
     );
     CREATE TABLE tours(
-      "tourId" SERIAL PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       title TEXT NOT NULL,
-      "guestsId" INTEGER REFERENCES guests("guestsId"),
       description TEXT NOT NULL,
       googlemap TEXT NOT NULL,
-      "imgUrl" TEXT NOT NULL,
+      imgurl TEXT NOT NULL,
       price INT NOT NULL,
-      IsReserve BOOLEAN
-    )
+      "IsReserve" BOOLEAN
+    );
+    CREATE TABLE reservations (
+      guest_id INTEGER REFERENCES guests(id) NOT NULL,
+      tour_id INTEGER REFERENCES tours(id) NOT NULL
+    );
     `)
   }catch(error){
     console.error(error)
@@ -64,6 +66,21 @@ const createInitialTours = async () => {
   }
 }
 
+const createInitialReservations = async () => {
+  try {
+    await client.query(`
+    INSERT INTO reservations (guest_id,tour_id)
+    VALUES (1,1);
+    INSERT INTO reservations (guest_id,tour_id)
+    VALUES (2,2);
+    INSERT INTO reservations (guest_id,tour_id)
+    VALUES (3,2);
+    `);
+    console.log("created reservations");
+  } catch (error) {
+    throw error;
+  }
+};
 const buildDb = async() => {
   try{
     client.connect()
@@ -71,6 +88,7 @@ const buildDb = async() => {
     await createTable()
     await createInitialGuests()
     await createInitialTours()
+    await createInitialReservations()
   }catch(error){
     console.error(error)
   }finally{
