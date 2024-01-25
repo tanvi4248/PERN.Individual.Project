@@ -20,6 +20,7 @@ const api = createApi({
         getSingleTour: builder.query({
             query: (tourId) => `/tours/${tourId}`,
         }),
+        
         getGuest: builder.query({
             query: (token) => ({
                 url: '/guests/me',
@@ -38,15 +39,26 @@ const api = createApi({
             }),
         }),
         login: builder.mutation({
-            query: ({ firstname, password }) => ({
+            query: ({firstname, password}) => ({
                 url: '/guests/login',
                 method: "POST",
                 body: { firstname, password },
             }),
-        })
+        }),
+        getReservations: builder.query({
+            query: (guestsId) => `guests/${guestsId}/reservations`,
+        }),
+        reservations: builder.mutation({
+            query: ({ guestsId, tourId }) => ({
+              url: `tours/${tourId}`,
+              method: "POST",
+              body: { guestsId, tourId },
+            }),
+          }),
+
     })
 })
 
 export default api
 
-export const {useGetToursQuery,useGetSingleTourQuery,useGetGuestQuery,useLoginMutation,useRegisterMutation} = api
+export const {useGetToursQuery,useGetSingleTourQuery,useGetGuestQuery,useLoginMutation,useRegisterMutation,useGetReservationsQuery,useReservationsMutation} = api
