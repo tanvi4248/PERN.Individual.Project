@@ -21,16 +21,16 @@ export default function ToursList() {
     <div className='tour-list'>
       <Row>
       {data.map((tour) => (
-        <Col key={tour.tourId} xs="4" >
+        <Col key={tour.id} xs="4" >
         <div className={styles.tourcard}>
             <div className={styles.tourtitle}>{tour.title}</div>
             <div className={styles.description}>{tour.description}</div>
             <div className={styles.img}>
-            <img src={tour.imgUrl} alt={tour.title}></img>
+            <img src={tour.imgurl} alt={tour.title}></img>
             </div>
             <div className={styles.pricedetail}>
             <div className={styles.price}>${tour.price} <br/> <span>includes taxes & fees</span></div>
-            <Button variant="primary" className={styles.detail} onClick={() => navigate(`/tours/${tour.tourId}`)}>See Details</Button>
+            <Button variant="primary" className={styles.detail} onClick={() => navigate(`/tours/${tour.id}`)}>See Details</Button>
             </div>
         </div>
         </Col>
