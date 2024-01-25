@@ -1,11 +1,8 @@
 import { useSelector } from "react-redux"
 import styles from './Account.module.css'
-import { selectCurrentToken, selectCurrentGuest } from "../redux/tokenSlice"
+import { selectCurrentGuest } from "../redux/tokenSlice"
 export default function Account() {
-  const token = useSelector(selectCurrentToken);
-  const guest = useSelector(selectCurrentGuest);
-  console.log("Token:", token);
-  console.log("User:", guest);
+  const guest = useSelector(selectCurrentGuest)
   return (
     <>
     <h1>Guest Detail</h1>
