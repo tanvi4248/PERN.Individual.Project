@@ -24,11 +24,11 @@ export default function Reservations() {
     }
 
     function getTotal() {
-      let total = 0;
+      let total = 0
       reservations.forEach((reservation) => {
-        total = total + reservation.price;
-      });
-      return total;
+        total = total + reservation.price
+      })
+      return total
     }
     const totalPrice = getTotal();
     return (
