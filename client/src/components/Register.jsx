@@ -16,9 +16,9 @@ function Register() {
     email: "",
     password: "",
   })
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [register, { data, isSuccess }] = useRegisterMutation();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [register, { data, isSuccess }] = useRegisterMutation()
 
   const handleSubmit = async (e) => {
     e.preventDefault()

@@ -4,21 +4,21 @@ import styles from './SingleTour.module.css'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { useSelector } from "react-redux"
-import { selectCurrentToken, selectCurrentGuest } from "../redux/tokenSlice"
+import { useNavigate } from "react-router-dom"
+import { selectCurrentToken,selectCurrentGuest } from "../redux/tokenSlice"
 import Button from 'react-bootstrap/Button'
 export default function SingleTour() {
   const {tourId} = useParams()
-  const token = useSelector(selectCurrentToken);
-  const guest = useSelector(selectCurrentGuest);
+  const token = useSelector(selectCurrentToken)
+  const guest = useSelector(selectCurrentGuest)
   const { data: tour, error, isLoading } = useGetSingleTourQuery(tourId)
   const [reservations] = useReservationsMutation()
-  console.log(tour)
+  const navigate = useNavigate()
 
-  const handleReserve = async () => {
-    await reservations({ guestsId: guest.id, tourId: tourId })
-      .unwrap()
-      .then((res) => console.log(res))
-      .catch((error) => console.error('rejected', error))
+  const handleReserve = async (e) => {
+    e.preventDefault()
+    await reservations({ guestsId: guest.id, tourId}).unwrap() 
+    navigate(`/${guest.id}/reservations`)
   }
 
   if (isLoading) {

@@ -30,3 +30,23 @@
     font-weight: 400;
     font-size: 14px;
 } 
+.titlesearch {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 20px;
+  }
+  .titlesearch h1{
+    margin: 0;
+  }
+  .searchbar{
+    display: flex;
+  }
+  form.searchbar input {
+    border: none;
+    width: auto;
+    padding: 10px;
+    height: auto;
+  }
+.tourlist .tours{
+    margin-bottom: 20px;
+}

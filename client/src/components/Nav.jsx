@@ -1,6 +1,6 @@
 import { Link,useNavigate } from "react-router-dom";
-import { logOut } from '../redux/tokenSlice'
-import { selectCurrentToken, selectCurrentGuest } from "../redux/tokenSlice"
+import { logout } from '../redux/tokenSlice'
+import { selectCurrentGuest,selectCurrentToken } from "../redux/tokenSlice"
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './Nav.module.css'
 
@@ -12,7 +12,7 @@ export default function Nav() {
   const guest = useSelector(selectCurrentGuest)
   console.log(token)
   const handleLogout = async () => {
-    dispatch(logOut())
+    dispatch(logout())
     navigate("/")
   }
 
