@@ -12,7 +12,7 @@ const {
 const { createReservations } = require("../db/sqlHelperFunctions/guests");
 router.get("/", async (req, res, next) => {
   try {
-    const tours = await getAllTours();
+    const tours = await getAllTours()
     res.send(tours);
   } catch (error) {
     next(error);
@@ -53,6 +53,8 @@ router.patch("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+
 
 router.delete("/:id", async (req, res, next) => {
   try {

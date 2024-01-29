@@ -10,7 +10,8 @@ const{
     getAllGuests,
     createGuests,
     getGuestsByFirstname,
-    getReservations
+    getReservations,
+    deleteReservations
 } = require("../db/sqlHelperFunctions/guests");
 
 
@@ -19,7 +20,6 @@ const{
 router.get("/",async(req,res,next) => {
     try{
         const guests = await getAllGuests()
-        //console.log(req.path) 
         res.send(guests) 
     }catch(error){
         next(error)
@@ -97,18 +97,27 @@ router.post("/logout", async (req, res, next) => {
 			message: "Logged Out",
 		})
 	} catch (error) {
-		next(error);
+		next(error)
 	}
+})
+
+router.delete("/:id/reservations", async (req, res, next) => {
+    try {
+      const tour = await deleteReservations(req.params.id)
+      res.send(tour)
+    } catch (error) {
+      next(error)
+    }
 })
 
 router.get("/:id/reservations", async (req, res, next) => {
     try {
-      const reservations = await getReservations(req.params.id);
-      res.send(reservations);
+      const reservations = await getReservations(req.params.id)
+      res.send(reservations)
     } catch (error) {
-      next(error);
+      next(error)
     }
-  });
+})
 
 
 module.exports = router
