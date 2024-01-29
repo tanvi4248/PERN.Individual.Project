@@ -38,11 +38,12 @@ const getGuestsByFirstname = async(firstname) => {
     return guest
 }
 
-const getReservations = async (guestsId) => {
+const getReservations = async (guestsId,reservationId) => {
     try {
       const { rows } = await client.query(`
             SELECT 
             g.guest_id AS "guestsId",
+            g.rid AS "reservationId",
             t.id AS "tourId",
             t.title AS title,
             t.description AS description,
@@ -74,4 +75,13 @@ const createReservations = async(body) => {
     }
 }
 
-module.exports = {createGuests,getAllGuests,getGuestsByFirstname,getReservations,createReservations}
+const deleteReservations = async(reservationId) => {
+    try {
+        const { rows } = await client.query(`DELETE FROM reservations WHERE rid=$1 RETURNING *`, [reservationId]);
+        return rows[0];
+    } catch (err) {
+        throw err
+    }
+}
+
+module.exports = {createGuests,getAllGuests,getGuestsByFirstname,getReservations,createReservations,deleteReservations}

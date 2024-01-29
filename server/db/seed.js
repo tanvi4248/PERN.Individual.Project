@@ -37,6 +37,7 @@ const createTable = async() => {
       "IsReserve" BOOLEAN
     );
     CREATE TABLE reservations (
+      rid SERIAL PRIMARY KEY,
       guest_id INTEGER REFERENCES guests(id) NOT NULL,
       tour_id INTEGER REFERENCES tours(id) NOT NULL
     );
