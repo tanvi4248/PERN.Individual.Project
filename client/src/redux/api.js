@@ -5,7 +5,7 @@ const api = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:8080/api",
         prepareHeaders: (headers, { getState }) => {
-            const { token } = getState();
+            const { token } = getState().token.token;
             if (token) {
                 headers.set('Authorization', `Bearer ${token}`)
             }
@@ -54,11 +54,17 @@ const api = createApi({
               method: "POST",
               body: { guestsId, tourId },
             }),
-          }),
+        }),
+        deleteReservations: builder.mutation({
+            query: (guestsId) => ({
+                url: `guests/${guestsId}/reservations`,
+                method: "DELETE"
+            }),
+        }),
 
     })
 })
 
 export default api
 
-export const {useGetToursQuery,useGetSingleTourQuery,useGetGuestQuery,useLoginMutation,useRegisterMutation,useGetReservationsQuery,useReservationsMutation} = api
+export const {useGetToursQuery,useGetSingleTourQuery,useGetGuestQuery,useLoginMutation,useRegisterMutation,useGetReservationsQuery,useReservationsMutation,useDeleteReservationsMutation} = api
